@@ -1,0 +1,179 @@
+// =================
+// auth.proto
+syntax = "proto3";
+
+package auth.v2;
+
+option go_package = "gitlab.com/bykarya-proto/proto/gen/go/auth/v2;authpbv2";
+
+import "google/protobuf/timestamp.proto";
+
+message LoginRequest {
+    string email = 1;
+    string password = 2;
+}
+
+message LoginResponse {
+    string access_token = 1;
+    string refresh_token = 2;
+    google.protobuf.Timestamp expires_at = 3;
+    string email = 4;
+    string name = 5;
+    string otp = 6;
+}
+
+message RefreshTokenRequest {
+    string refresh_token = 1;
+}
+
+message RefreshTokenResponse {
+    string access_token = 1;
+    string refresh_token = 2;
+    google.protobuf.Timestamp expires_at = 3;
+    string email = 4;
+    string name = 5;
+}
+
+message RegisterRequest {
+    string name = 1;
+    string email = 2;
+    bool is_active = 3;
+    string role_id = 4;
+    string type = 5;
+    string merchant_uuid = 6;
+}
+
+message RegisterResponse {
+    string id = 1;
+    string name = 2;
+    string email = 3;
+    string merchant_uuid = 4;
+    string merchant_name = 5;
+    bool is_active = 6;
+    string type = 7;
+    google.protobuf.Timestamp created_at = 8;
+    string role_id = 9;
+    string role_name = 10;
+}
+
+message ValidateTokenRequest {
+    string access_token = 1;
+}
+
+message ValidateTokenResponse {
+    string user_id = 1;
+    string role = 2;
+}
+
+message VerifyOTPRequest {
+    string otp_code = 1;
+    string access_type = 2;
+    string email = 3;
+}
+
+message VerifyOTPResponse {
+    bool is_success = 1;
+}
+
+message ResendOTPRequest {
+    string email = 1;
+}
+
+message ResendOTPResponse {
+    bool is_success = 1;
+}
+
+message ResendActivationCodeRequest {
+    string email = 1;
+}
+
+message ResendActivationCodeResponse {
+    bool is_success = 1;
+}
+
+message CheckTokenActivationPasswordRequest {
+    string activation_code = 1;
+}
+
+message CheckTokenActivationPasswordResponse {
+    bool is_success = 1;
+}
+
+message CreatePasswordRequest {
+    string activation_code = 1;
+    string new_password = 2;
+    string confirmation_password = 3;
+}
+
+message CreatePasswordResponse {
+    bool is_success = 1;
+}
+
+message ForgotPasswordRequest {
+    string email = 1;
+}
+
+message ForgotPasswordResponse {
+    bool is_success = 1;
+}
+
+message ResetPasswordRequest {
+    string activation_code = 1;
+    string new_password = 2;
+    string confirmation_password = 3;
+}
+
+message ResetPasswordResponse {
+    bool is_success = 1;
+}
+
+message ChangePasswordRequest {
+    string activation_code = 1;
+    string new_password = 2;
+    string confirmation_password = 3;
+}
+
+message ChangePasswordResponse {
+    bool is_success = 1;
+}
+
+message LogoutRequest {
+    string token = 1;
+}
+
+message LogoutResponse {
+    bool is_success = 1;
+}
+
+message ListRoleNameRequest {
+    int32 page = 1;
+    int32 size = 2;
+    string search = 3;
+    string status = 4;
+}
+
+message RoleNameResponse {
+    string uuid = 1;
+    string name = 2;
+}
+
+message ListRoleNameResponse {
+    repeated RoleNameResponse data = 1;
+}
+
+service AuthService {
+    rpc Login(LoginRequest) returns (LoginResponse);
+    rpc RefreshToken(RefreshTokenRequest) returns (RefreshTokenResponse);
+    rpc Register(RegisterRequest) returns (RegisterResponse);
+    rpc CreatePassword(CreatePasswordRequest) returns (CreatePasswordResponse);
+    rpc ResendActivationCode(ResendActivationCodeRequest) returns (ResendActivationCodeResponse);
+    rpc ForgotPassword(ForgotPasswordRequest) returns (ForgotPasswordResponse);
+    rpc ResetPassword(ResetPasswordRequest) returns (ResetPasswordResponse);
+    rpc ChangePassword(ChangePasswordRequest) returns (ChangePasswordResponse);
+    rpc Validate(ValidateTokenRequest) returns (ValidateTokenResponse);
+    rpc ValidateActivationCode(CheckTokenActivationPasswordRequest) returns (CheckTokenActivationPasswordResponse);
+    rpc VerifyOTP(VerifyOTPRequest) returns (VerifyOTPResponse);
+    rpc ResendOTP(ResendOTPRequest) returns (ResendOTPResponse);
+    rpc Logout(LogoutRequest) returns (LogoutResponse);
+    rpc GetAllRoleName(ListRoleNameRequest) returns (ListRoleNameResponse);
+}
