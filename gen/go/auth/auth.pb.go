@@ -1726,7 +1726,7 @@ const file_auth_proto_rawDesc = "" +
 	"\tVerifyOTP\x12\x19.auth.v2.VerifyOTPRequest\x1a\x1a.auth.v2.VerifyOTPResponse\x12B\n" +
 	"\tResendOTP\x12\x19.auth.v2.ResendOTPRequest\x1a\x1a.auth.v2.ResendOTPResponse\x129\n" +
 	"\x06Logout\x12\x16.auth.v2.LogoutRequest\x1a\x17.auth.v2.LogoutResponse\x12M\n" +
-	"\x0eGetAllRoleName\x12\x1c.auth.v2.ListRoleNameRequest\x1a\x1d.auth.v2.ListRoleNameResponseB8Z6gitlab.com/bykarya-proto/proto/gen/go/auth/v2;authpbv2b\x06proto3"
+	"\x0eGetAllRoleName\x12\x1c.auth.v2.ListRoleNameRequest\x1a\x1d.auth.v2.ListRoleNameResponseB;Z9github.com/ImamTry257/lms-proto-auth/gen/go/auth;authpbv2b\x06proto3"
 
 var (
 	file_auth_proto_rawDescOnce sync.Once
