@@ -640,6 +640,7 @@ func (x *VerifyOTPRequest) GetEmail() string {
 type VerifyOTPResponse struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	IsSuccess     bool                   `protobuf:"varint,1,opt,name=is_success,json=isSuccess,proto3" json:"is_success,omitempty"`
+	AccessToken   string                 `protobuf:"bytes,2,opt,name=access_token,json=accessToken,proto3" json:"access_token,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -679,6 +680,13 @@ func (x *VerifyOTPResponse) GetIsSuccess() bool {
 		return x.IsSuccess
 	}
 	return false
+}
+
+func (x *VerifyOTPResponse) GetAccessToken() string {
+	if x != nil {
+		return x.AccessToken
+	}
+	return ""
 }
 
 type ResendOTPRequest struct {
@@ -1652,10 +1660,11 @@ const file_auth_proto_rawDesc = "" +
 	"\botp_code\x18\x01 \x01(\tR\aotpCode\x12\x1f\n" +
 	"\vaccess_type\x18\x02 \x01(\tR\n" +
 	"accessType\x12\x14\n" +
-	"\x05email\x18\x03 \x01(\tR\x05email\"2\n" +
+	"\x05email\x18\x03 \x01(\tR\x05email\"U\n" +
 	"\x11VerifyOTPResponse\x12\x1d\n" +
 	"\n" +
-	"is_success\x18\x01 \x01(\bR\tisSuccess\"(\n" +
+	"is_success\x18\x01 \x01(\bR\tisSuccess\x12!\n" +
+	"\faccess_token\x18\x02 \x01(\tR\vaccessToken\"(\n" +
 	"\x10ResendOTPRequest\x12\x14\n" +
 	"\x05email\x18\x01 \x01(\tR\x05email\"2\n" +
 	"\x11ResendOTPResponse\x12\x1d\n" +

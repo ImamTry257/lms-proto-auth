@@ -73,6 +73,7 @@ message VerifyOTPRequest {
 
 message VerifyOTPResponse {
     bool is_success = 1;
+    string access_token = 2;
 }
 
 message ResendOTPRequest {
