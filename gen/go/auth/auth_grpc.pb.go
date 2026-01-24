@@ -36,6 +36,11 @@ const (
 	AuthService_ResendOTP_FullMethodName              = "/auth.v2.AuthService/ResendOTP"
 	AuthService_Logout_FullMethodName                 = "/auth.v2.AuthService/Logout"
 	AuthService_GetAllRoleName_FullMethodName         = "/auth.v2.AuthService/GetAllRoleName"
+	AuthService_GetAll_FullMethodName                 = "/auth.v2.AuthService/GetAll"
+	AuthService_GetRoleByUuid_FullMethodName          = "/auth.v2.AuthService/GetRoleByUuid"
+	AuthService_Create_FullMethodName                 = "/auth.v2.AuthService/Create"
+	AuthService_Update_FullMethodName                 = "/auth.v2.AuthService/Update"
+	AuthService_Delete_FullMethodName                 = "/auth.v2.AuthService/Delete"
 )
 
 // AuthServiceClient is the client API for AuthService service.
@@ -56,6 +61,11 @@ type AuthServiceClient interface {
 	ResendOTP(ctx context.Context, in *ResendOTPRequest, opts ...grpc.CallOption) (*ResendOTPResponse, error)
 	Logout(ctx context.Context, in *LogoutRequest, opts ...grpc.CallOption) (*LogoutResponse, error)
 	GetAllRoleName(ctx context.Context, in *ListRoleNameRequest, opts ...grpc.CallOption) (*ListRoleNameResponse, error)
+	GetAll(ctx context.Context, in *ListRoleNameRequest, opts ...grpc.CallOption) (*LisRoleResponse, error)
+	GetRoleByUuid(ctx context.Context, in *GetRoleByUuidRequest, opts ...grpc.CallOption) (*RoleResponse, error)
+	Create(ctx context.Context, in *RoleRequest, opts ...grpc.CallOption) (*ActionRoleResponse, error)
+	Update(ctx context.Context, in *RoleRequest, opts ...grpc.CallOption) (*ActionRoleResponse, error)
+	Delete(ctx context.Context, in *GetRoleByUuidRequest, opts ...grpc.CallOption) (*ActionRoleResponse, error)
 }
 
 type authServiceClient struct {
@@ -206,6 +216,56 @@ func (c *authServiceClient) GetAllRoleName(ctx context.Context, in *ListRoleName
 	return out, nil
 }
 
+func (c *authServiceClient) GetAll(ctx context.Context, in *ListRoleNameRequest, opts ...grpc.CallOption) (*LisRoleResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(LisRoleResponse)
+	err := c.cc.Invoke(ctx, AuthService_GetAll_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *authServiceClient) GetRoleByUuid(ctx context.Context, in *GetRoleByUuidRequest, opts ...grpc.CallOption) (*RoleResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(RoleResponse)
+	err := c.cc.Invoke(ctx, AuthService_GetRoleByUuid_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *authServiceClient) Create(ctx context.Context, in *RoleRequest, opts ...grpc.CallOption) (*ActionRoleResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(ActionRoleResponse)
+	err := c.cc.Invoke(ctx, AuthService_Create_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *authServiceClient) Update(ctx context.Context, in *RoleRequest, opts ...grpc.CallOption) (*ActionRoleResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(ActionRoleResponse)
+	err := c.cc.Invoke(ctx, AuthService_Update_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *authServiceClient) Delete(ctx context.Context, in *GetRoleByUuidRequest, opts ...grpc.CallOption) (*ActionRoleResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(ActionRoleResponse)
+	err := c.cc.Invoke(ctx, AuthService_Delete_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // AuthServiceServer is the server API for AuthService service.
 // All implementations must embed UnimplementedAuthServiceServer
 // for forward compatibility.
@@ -224,6 +284,11 @@ type AuthServiceServer interface {
 	ResendOTP(context.Context, *ResendOTPRequest) (*ResendOTPResponse, error)
 	Logout(context.Context, *LogoutRequest) (*LogoutResponse, error)
 	GetAllRoleName(context.Context, *ListRoleNameRequest) (*ListRoleNameResponse, error)
+	GetAll(context.Context, *ListRoleNameRequest) (*LisRoleResponse, error)
+	GetRoleByUuid(context.Context, *GetRoleByUuidRequest) (*RoleResponse, error)
+	Create(context.Context, *RoleRequest) (*ActionRoleResponse, error)
+	Update(context.Context, *RoleRequest) (*ActionRoleResponse, error)
+	Delete(context.Context, *GetRoleByUuidRequest) (*ActionRoleResponse, error)
 	mustEmbedUnimplementedAuthServiceServer()
 }
 
@@ -275,6 +340,21 @@ func (UnimplementedAuthServiceServer) Logout(context.Context, *LogoutRequest) (*
 }
 func (UnimplementedAuthServiceServer) GetAllRoleName(context.Context, *ListRoleNameRequest) (*ListRoleNameResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetAllRoleName not implemented")
+}
+func (UnimplementedAuthServiceServer) GetAll(context.Context, *ListRoleNameRequest) (*LisRoleResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetAll not implemented")
+}
+func (UnimplementedAuthServiceServer) GetRoleByUuid(context.Context, *GetRoleByUuidRequest) (*RoleResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetRoleByUuid not implemented")
+}
+func (UnimplementedAuthServiceServer) Create(context.Context, *RoleRequest) (*ActionRoleResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method Create not implemented")
+}
+func (UnimplementedAuthServiceServer) Update(context.Context, *RoleRequest) (*ActionRoleResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method Update not implemented")
+}
+func (UnimplementedAuthServiceServer) Delete(context.Context, *GetRoleByUuidRequest) (*ActionRoleResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method Delete not implemented")
 }
 func (UnimplementedAuthServiceServer) mustEmbedUnimplementedAuthServiceServer() {}
 func (UnimplementedAuthServiceServer) testEmbeddedByValue()                     {}
@@ -549,6 +629,96 @@ func _AuthService_GetAllRoleName_Handler(srv interface{}, ctx context.Context, d
 	return interceptor(ctx, in, info, handler)
 }
 
+func _AuthService_GetAll_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ListRoleNameRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(AuthServiceServer).GetAll(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: AuthService_GetAll_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(AuthServiceServer).GetAll(ctx, req.(*ListRoleNameRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _AuthService_GetRoleByUuid_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetRoleByUuidRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(AuthServiceServer).GetRoleByUuid(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: AuthService_GetRoleByUuid_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(AuthServiceServer).GetRoleByUuid(ctx, req.(*GetRoleByUuidRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _AuthService_Create_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(RoleRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(AuthServiceServer).Create(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: AuthService_Create_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(AuthServiceServer).Create(ctx, req.(*RoleRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _AuthService_Update_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(RoleRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(AuthServiceServer).Update(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: AuthService_Update_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(AuthServiceServer).Update(ctx, req.(*RoleRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _AuthService_Delete_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetRoleByUuidRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(AuthServiceServer).Delete(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: AuthService_Delete_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(AuthServiceServer).Delete(ctx, req.(*GetRoleByUuidRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // AuthService_ServiceDesc is the grpc.ServiceDesc for AuthService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -611,6 +781,26 @@ var AuthService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetAllRoleName",
 			Handler:    _AuthService_GetAllRoleName_Handler,
+		},
+		{
+			MethodName: "GetAll",
+			Handler:    _AuthService_GetAll_Handler,
+		},
+		{
+			MethodName: "GetRoleByUuid",
+			Handler:    _AuthService_GetRoleByUuid_Handler,
+		},
+		{
+			MethodName: "Create",
+			Handler:    _AuthService_Create_Handler,
+		},
+		{
+			MethodName: "Update",
+			Handler:    _AuthService_Update_Handler,
+		},
+		{
+			MethodName: "Delete",
+			Handler:    _AuthService_Delete_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

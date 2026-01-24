@@ -20,6 +20,7 @@ message LoginResponse {
     string email = 4;
     string name = 5;
     string otp = 6;
+    repeated string abilities = 7;
 }
 
 message RefreshTokenRequest {
@@ -162,6 +163,41 @@ message ListRoleNameResponse {
     repeated RoleNameResponse data = 1;
 }
 
+message GetRoleByUuidRequest {
+    string id_ = 1;
+}
+
+message RoleRequest {
+    int32 id = 1;
+    string uuid = 2;
+    string merchant_id = 3;
+    string role_name = 4;
+    string permissions = 5;
+    int32 is_active = 6;
+}
+
+message RoleResponse {
+    int32 id = 1;
+    string uuid = 2;
+    string merchant_id = 3;
+    string role_name = 4;
+    string permissions = 5;
+    int32 is_active = 6;
+    google.protobuf.Timestamp created_at = 7;
+}
+
+message ActionRoleResponse {
+    bool is_success = 1;
+}
+
+message LisRoleResponse {
+    repeated RoleResponse data = 1;
+    int32 page = 2;
+    int32 size = 3;
+    int32 total_items = 4;
+    int32 total_pages = 5;
+}
+
 service AuthService {
     rpc Login(LoginRequest) returns (LoginResponse);
     rpc RefreshToken(RefreshTokenRequest) returns (RefreshTokenResponse);
@@ -177,4 +213,9 @@ service AuthService {
     rpc ResendOTP(ResendOTPRequest) returns (ResendOTPResponse);
     rpc Logout(LogoutRequest) returns (LogoutResponse);
     rpc GetAllRoleName(ListRoleNameRequest) returns (ListRoleNameResponse);
+    rpc GetAll(ListRoleNameRequest) returns (LisRoleResponse);
+    rpc GetRoleByUuid(GetRoleByUuidRequest) returns (RoleResponse);
+    rpc Create(RoleRequest) returns (ActionRoleResponse);
+    rpc Update(RoleRequest) returns (ActionRoleResponse);
+    rpc Delete(GetRoleByUuidRequest) returns (ActionRoleResponse);
 }
