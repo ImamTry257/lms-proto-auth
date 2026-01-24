@@ -13,6 +13,11 @@ message LoginRequest {
     string password = 2;
 }
 
+message Ability {
+  string resource = 1;
+  repeated string actions = 2;
+}
+
 message LoginResponse {
     string access_token = 1;
     string refresh_token = 2;
@@ -20,7 +25,7 @@ message LoginResponse {
     string email = 4;
     string name = 5;
     string otp = 6;
-    repeated string abilities = 7;
+    repeated Ability abilities = 7;
 }
 
 message RefreshTokenRequest {
