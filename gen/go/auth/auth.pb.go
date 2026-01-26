@@ -131,13 +131,9 @@ func (x *Ability) GetActions() []string {
 
 type LoginResponse struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	AccessToken   string                 `protobuf:"bytes,1,opt,name=access_token,json=accessToken,proto3" json:"access_token,omitempty"`
-	RefreshToken  string                 `protobuf:"bytes,2,opt,name=refresh_token,json=refreshToken,proto3" json:"refresh_token,omitempty"`
+	OtpToken      string                 `protobuf:"bytes,1,opt,name=otp_token,json=otpToken,proto3" json:"otp_token,omitempty"`
+	AuthLevel     string                 `protobuf:"bytes,2,opt,name=auth_level,json=authLevel,proto3" json:"auth_level,omitempty"`
 	ExpiresAt     *timestamppb.Timestamp `protobuf:"bytes,3,opt,name=expires_at,json=expiresAt,proto3" json:"expires_at,omitempty"`
-	Email         string                 `protobuf:"bytes,4,opt,name=email,proto3" json:"email,omitempty"`
-	Name          string                 `protobuf:"bytes,5,opt,name=name,proto3" json:"name,omitempty"`
-	Otp           string                 `protobuf:"bytes,6,opt,name=otp,proto3" json:"otp,omitempty"`
-	Abilities     []*Ability             `protobuf:"bytes,7,rep,name=abilities,proto3" json:"abilities,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -172,16 +168,16 @@ func (*LoginResponse) Descriptor() ([]byte, []int) {
 	return file_auth_proto_rawDescGZIP(), []int{2}
 }
 
-func (x *LoginResponse) GetAccessToken() string {
+func (x *LoginResponse) GetOtpToken() string {
 	if x != nil {
-		return x.AccessToken
+		return x.OtpToken
 	}
 	return ""
 }
 
-func (x *LoginResponse) GetRefreshToken() string {
+func (x *LoginResponse) GetAuthLevel() string {
 	if x != nil {
-		return x.RefreshToken
+		return x.AuthLevel
 	}
 	return ""
 }
@@ -189,34 +185,6 @@ func (x *LoginResponse) GetRefreshToken() string {
 func (x *LoginResponse) GetExpiresAt() *timestamppb.Timestamp {
 	if x != nil {
 		return x.ExpiresAt
-	}
-	return nil
-}
-
-func (x *LoginResponse) GetEmail() string {
-	if x != nil {
-		return x.Email
-	}
-	return ""
-}
-
-func (x *LoginResponse) GetName() string {
-	if x != nil {
-		return x.Name
-	}
-	return ""
-}
-
-func (x *LoginResponse) GetOtp() string {
-	if x != nil {
-		return x.Otp
-	}
-	return ""
-}
-
-func (x *LoginResponse) GetAbilities() []*Ability {
-	if x != nil {
-		return x.Abilities
 	}
 	return nil
 }
@@ -641,7 +609,6 @@ type VerifyOTPRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	OtpCode       string                 `protobuf:"bytes,1,opt,name=otp_code,json=otpCode,proto3" json:"otp_code,omitempty"`
 	AccessType    string                 `protobuf:"bytes,2,opt,name=access_type,json=accessType,proto3" json:"access_type,omitempty"`
-	Email         string                 `protobuf:"bytes,3,opt,name=email,proto3" json:"email,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -690,17 +657,14 @@ func (x *VerifyOTPRequest) GetAccessType() string {
 	return ""
 }
 
-func (x *VerifyOTPRequest) GetEmail() string {
-	if x != nil {
-		return x.Email
-	}
-	return ""
-}
-
 type VerifyOTPResponse struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	IsSuccess     bool                   `protobuf:"varint,1,opt,name=is_success,json=isSuccess,proto3" json:"is_success,omitempty"`
-	AccessToken   string                 `protobuf:"bytes,2,opt,name=access_token,json=accessToken,proto3" json:"access_token,omitempty"`
+	AccessToken   string                 `protobuf:"bytes,1,opt,name=access_token,json=accessToken,proto3" json:"access_token,omitempty"`
+	RefreshToken  string                 `protobuf:"bytes,2,opt,name=refresh_token,json=refreshToken,proto3" json:"refresh_token,omitempty"`
+	ExpiresAt     *timestamppb.Timestamp `protobuf:"bytes,3,opt,name=expires_at,json=expiresAt,proto3" json:"expires_at,omitempty"`
+	Email         string                 `protobuf:"bytes,4,opt,name=email,proto3" json:"email,omitempty"`
+	Name          string                 `protobuf:"bytes,5,opt,name=name,proto3" json:"name,omitempty"`
+	Abilities     []*Ability             `protobuf:"bytes,7,rep,name=abilities,proto3" json:"abilities,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -735,18 +699,46 @@ func (*VerifyOTPResponse) Descriptor() ([]byte, []int) {
 	return file_auth_proto_rawDescGZIP(), []int{10}
 }
 
-func (x *VerifyOTPResponse) GetIsSuccess() bool {
-	if x != nil {
-		return x.IsSuccess
-	}
-	return false
-}
-
 func (x *VerifyOTPResponse) GetAccessToken() string {
 	if x != nil {
 		return x.AccessToken
 	}
 	return ""
+}
+
+func (x *VerifyOTPResponse) GetRefreshToken() string {
+	if x != nil {
+		return x.RefreshToken
+	}
+	return ""
+}
+
+func (x *VerifyOTPResponse) GetExpiresAt() *timestamppb.Timestamp {
+	if x != nil {
+		return x.ExpiresAt
+	}
+	return nil
+}
+
+func (x *VerifyOTPResponse) GetEmail() string {
+	if x != nil {
+		return x.Email
+	}
+	return ""
+}
+
+func (x *VerifyOTPResponse) GetName() string {
+	if x != nil {
+		return x.Name
+	}
+	return ""
+}
+
+func (x *VerifyOTPResponse) GetAbilities() []*Ability {
+	if x != nil {
+		return x.Abilities
+	}
+	return nil
 }
 
 type ResendOTPRequest struct {
@@ -2016,16 +2008,13 @@ const file_auth_proto_rawDesc = "" +
 	"\bpassword\x18\x02 \x01(\tR\bpassword\"?\n" +
 	"\aAbility\x12\x1a\n" +
 	"\bresource\x18\x01 \x01(\tR\bresource\x12\x18\n" +
-	"\aactions\x18\x02 \x03(\tR\aactions\"\xfe\x01\n" +
-	"\rLoginResponse\x12!\n" +
-	"\faccess_token\x18\x01 \x01(\tR\vaccessToken\x12#\n" +
-	"\rrefresh_token\x18\x02 \x01(\tR\frefreshToken\x129\n" +
+	"\aactions\x18\x02 \x03(\tR\aactions\"\x86\x01\n" +
+	"\rLoginResponse\x12\x1b\n" +
+	"\totp_token\x18\x01 \x01(\tR\botpToken\x12\x1d\n" +
 	"\n" +
-	"expires_at\x18\x03 \x01(\v2\x1a.google.protobuf.TimestampR\texpiresAt\x12\x14\n" +
-	"\x05email\x18\x04 \x01(\tR\x05email\x12\x12\n" +
-	"\x04name\x18\x05 \x01(\tR\x04name\x12\x10\n" +
-	"\x03otp\x18\x06 \x01(\tR\x03otp\x12.\n" +
-	"\tabilities\x18\a \x03(\v2\x10.auth.v2.AbilityR\tabilities\":\n" +
+	"auth_level\x18\x02 \x01(\tR\tauthLevel\x129\n" +
+	"\n" +
+	"expires_at\x18\x03 \x01(\v2\x1a.google.protobuf.TimestampR\texpiresAt\":\n" +
 	"\x13RefreshTokenRequest\x12#\n" +
 	"\rrefresh_token\x18\x01 \x01(\tR\frefreshToken\"\xc3\x01\n" +
 	"\x14RefreshTokenResponse\x12!\n" +
@@ -2059,16 +2048,19 @@ const file_auth_proto_rawDesc = "" +
 	"\faccess_token\x18\x01 \x01(\tR\vaccessToken\"D\n" +
 	"\x15ValidateTokenResponse\x12\x17\n" +
 	"\auser_id\x18\x01 \x01(\tR\x06userId\x12\x12\n" +
-	"\x04role\x18\x02 \x01(\tR\x04role\"d\n" +
+	"\x04role\x18\x02 \x01(\tR\x04role\"N\n" +
 	"\x10VerifyOTPRequest\x12\x19\n" +
 	"\botp_code\x18\x01 \x01(\tR\aotpCode\x12\x1f\n" +
 	"\vaccess_type\x18\x02 \x01(\tR\n" +
-	"accessType\x12\x14\n" +
-	"\x05email\x18\x03 \x01(\tR\x05email\"U\n" +
-	"\x11VerifyOTPResponse\x12\x1d\n" +
+	"accessType\"\xf0\x01\n" +
+	"\x11VerifyOTPResponse\x12!\n" +
+	"\faccess_token\x18\x01 \x01(\tR\vaccessToken\x12#\n" +
+	"\rrefresh_token\x18\x02 \x01(\tR\frefreshToken\x129\n" +
 	"\n" +
-	"is_success\x18\x01 \x01(\bR\tisSuccess\x12!\n" +
-	"\faccess_token\x18\x02 \x01(\tR\vaccessToken\"(\n" +
+	"expires_at\x18\x03 \x01(\v2\x1a.google.protobuf.TimestampR\texpiresAt\x12\x14\n" +
+	"\x05email\x18\x04 \x01(\tR\x05email\x12\x12\n" +
+	"\x04name\x18\x05 \x01(\tR\x04name\x12.\n" +
+	"\tabilities\x18\a \x03(\v2\x10.auth.v2.AbilityR\tabilities\"(\n" +
 	"\x10ResendOTPRequest\x12\x14\n" +
 	"\x05email\x18\x01 \x01(\tR\x05email\"2\n" +
 	"\x11ResendOTPResponse\x12\x1d\n" +
@@ -2230,55 +2222,56 @@ var file_auth_proto_goTypes = []any{
 }
 var file_auth_proto_depIdxs = []int32{
 	35, // 0: auth.v2.LoginResponse.expires_at:type_name -> google.protobuf.Timestamp
-	1,  // 1: auth.v2.LoginResponse.abilities:type_name -> auth.v2.Ability
-	35, // 2: auth.v2.RefreshTokenResponse.expires_at:type_name -> google.protobuf.Timestamp
-	35, // 3: auth.v2.RegisterResponse.created_at:type_name -> google.protobuf.Timestamp
-	28, // 4: auth.v2.ListRoleNameResponse.data:type_name -> auth.v2.RoleNameResponse
-	35, // 5: auth.v2.RoleResponse.created_at:type_name -> google.protobuf.Timestamp
-	32, // 6: auth.v2.LisRoleResponse.data:type_name -> auth.v2.RoleResponse
-	0,  // 7: auth.v2.AuthService.Login:input_type -> auth.v2.LoginRequest
-	3,  // 8: auth.v2.AuthService.RefreshToken:input_type -> auth.v2.RefreshTokenRequest
-	5,  // 9: auth.v2.AuthService.Register:input_type -> auth.v2.RegisterRequest
-	17, // 10: auth.v2.AuthService.CreatePassword:input_type -> auth.v2.CreatePasswordRequest
-	13, // 11: auth.v2.AuthService.ResendActivationCode:input_type -> auth.v2.ResendActivationCodeRequest
-	19, // 12: auth.v2.AuthService.ForgotPassword:input_type -> auth.v2.ForgotPasswordRequest
-	21, // 13: auth.v2.AuthService.ResetPassword:input_type -> auth.v2.ResetPasswordRequest
-	23, // 14: auth.v2.AuthService.ChangePassword:input_type -> auth.v2.ChangePasswordRequest
-	7,  // 15: auth.v2.AuthService.Validate:input_type -> auth.v2.ValidateTokenRequest
-	15, // 16: auth.v2.AuthService.ValidateActivationCode:input_type -> auth.v2.CheckTokenActivationPasswordRequest
-	9,  // 17: auth.v2.AuthService.VerifyOTP:input_type -> auth.v2.VerifyOTPRequest
-	11, // 18: auth.v2.AuthService.ResendOTP:input_type -> auth.v2.ResendOTPRequest
-	25, // 19: auth.v2.AuthService.Logout:input_type -> auth.v2.LogoutRequest
-	27, // 20: auth.v2.AuthService.GetAllRoleName:input_type -> auth.v2.ListRoleNameRequest
-	27, // 21: auth.v2.AuthService.GetAll:input_type -> auth.v2.ListRoleNameRequest
-	30, // 22: auth.v2.AuthService.GetRoleByUuid:input_type -> auth.v2.GetRoleByUuidRequest
-	31, // 23: auth.v2.AuthService.Create:input_type -> auth.v2.RoleRequest
-	31, // 24: auth.v2.AuthService.Update:input_type -> auth.v2.RoleRequest
-	30, // 25: auth.v2.AuthService.Delete:input_type -> auth.v2.GetRoleByUuidRequest
-	2,  // 26: auth.v2.AuthService.Login:output_type -> auth.v2.LoginResponse
-	4,  // 27: auth.v2.AuthService.RefreshToken:output_type -> auth.v2.RefreshTokenResponse
-	6,  // 28: auth.v2.AuthService.Register:output_type -> auth.v2.RegisterResponse
-	18, // 29: auth.v2.AuthService.CreatePassword:output_type -> auth.v2.CreatePasswordResponse
-	14, // 30: auth.v2.AuthService.ResendActivationCode:output_type -> auth.v2.ResendActivationCodeResponse
-	20, // 31: auth.v2.AuthService.ForgotPassword:output_type -> auth.v2.ForgotPasswordResponse
-	22, // 32: auth.v2.AuthService.ResetPassword:output_type -> auth.v2.ResetPasswordResponse
-	24, // 33: auth.v2.AuthService.ChangePassword:output_type -> auth.v2.ChangePasswordResponse
-	8,  // 34: auth.v2.AuthService.Validate:output_type -> auth.v2.ValidateTokenResponse
-	16, // 35: auth.v2.AuthService.ValidateActivationCode:output_type -> auth.v2.CheckTokenActivationPasswordResponse
-	10, // 36: auth.v2.AuthService.VerifyOTP:output_type -> auth.v2.VerifyOTPResponse
-	12, // 37: auth.v2.AuthService.ResendOTP:output_type -> auth.v2.ResendOTPResponse
-	26, // 38: auth.v2.AuthService.Logout:output_type -> auth.v2.LogoutResponse
-	29, // 39: auth.v2.AuthService.GetAllRoleName:output_type -> auth.v2.ListRoleNameResponse
-	34, // 40: auth.v2.AuthService.GetAll:output_type -> auth.v2.LisRoleResponse
-	32, // 41: auth.v2.AuthService.GetRoleByUuid:output_type -> auth.v2.RoleResponse
-	33, // 42: auth.v2.AuthService.Create:output_type -> auth.v2.ActionRoleResponse
-	33, // 43: auth.v2.AuthService.Update:output_type -> auth.v2.ActionRoleResponse
-	33, // 44: auth.v2.AuthService.Delete:output_type -> auth.v2.ActionRoleResponse
-	26, // [26:45] is the sub-list for method output_type
-	7,  // [7:26] is the sub-list for method input_type
-	7,  // [7:7] is the sub-list for extension type_name
-	7,  // [7:7] is the sub-list for extension extendee
-	0,  // [0:7] is the sub-list for field type_name
+	35, // 1: auth.v2.RefreshTokenResponse.expires_at:type_name -> google.protobuf.Timestamp
+	35, // 2: auth.v2.RegisterResponse.created_at:type_name -> google.protobuf.Timestamp
+	35, // 3: auth.v2.VerifyOTPResponse.expires_at:type_name -> google.protobuf.Timestamp
+	1,  // 4: auth.v2.VerifyOTPResponse.abilities:type_name -> auth.v2.Ability
+	28, // 5: auth.v2.ListRoleNameResponse.data:type_name -> auth.v2.RoleNameResponse
+	35, // 6: auth.v2.RoleResponse.created_at:type_name -> google.protobuf.Timestamp
+	32, // 7: auth.v2.LisRoleResponse.data:type_name -> auth.v2.RoleResponse
+	0,  // 8: auth.v2.AuthService.Login:input_type -> auth.v2.LoginRequest
+	3,  // 9: auth.v2.AuthService.RefreshToken:input_type -> auth.v2.RefreshTokenRequest
+	5,  // 10: auth.v2.AuthService.Register:input_type -> auth.v2.RegisterRequest
+	17, // 11: auth.v2.AuthService.CreatePassword:input_type -> auth.v2.CreatePasswordRequest
+	13, // 12: auth.v2.AuthService.ResendActivationCode:input_type -> auth.v2.ResendActivationCodeRequest
+	19, // 13: auth.v2.AuthService.ForgotPassword:input_type -> auth.v2.ForgotPasswordRequest
+	21, // 14: auth.v2.AuthService.ResetPassword:input_type -> auth.v2.ResetPasswordRequest
+	23, // 15: auth.v2.AuthService.ChangePassword:input_type -> auth.v2.ChangePasswordRequest
+	7,  // 16: auth.v2.AuthService.Validate:input_type -> auth.v2.ValidateTokenRequest
+	15, // 17: auth.v2.AuthService.ValidateActivationCode:input_type -> auth.v2.CheckTokenActivationPasswordRequest
+	9,  // 18: auth.v2.AuthService.VerifyOTP:input_type -> auth.v2.VerifyOTPRequest
+	11, // 19: auth.v2.AuthService.ResendOTP:input_type -> auth.v2.ResendOTPRequest
+	25, // 20: auth.v2.AuthService.Logout:input_type -> auth.v2.LogoutRequest
+	27, // 21: auth.v2.AuthService.GetAllRoleName:input_type -> auth.v2.ListRoleNameRequest
+	27, // 22: auth.v2.AuthService.GetAll:input_type -> auth.v2.ListRoleNameRequest
+	30, // 23: auth.v2.AuthService.GetRoleByUuid:input_type -> auth.v2.GetRoleByUuidRequest
+	31, // 24: auth.v2.AuthService.Create:input_type -> auth.v2.RoleRequest
+	31, // 25: auth.v2.AuthService.Update:input_type -> auth.v2.RoleRequest
+	30, // 26: auth.v2.AuthService.Delete:input_type -> auth.v2.GetRoleByUuidRequest
+	2,  // 27: auth.v2.AuthService.Login:output_type -> auth.v2.LoginResponse
+	4,  // 28: auth.v2.AuthService.RefreshToken:output_type -> auth.v2.RefreshTokenResponse
+	6,  // 29: auth.v2.AuthService.Register:output_type -> auth.v2.RegisterResponse
+	18, // 30: auth.v2.AuthService.CreatePassword:output_type -> auth.v2.CreatePasswordResponse
+	14, // 31: auth.v2.AuthService.ResendActivationCode:output_type -> auth.v2.ResendActivationCodeResponse
+	20, // 32: auth.v2.AuthService.ForgotPassword:output_type -> auth.v2.ForgotPasswordResponse
+	22, // 33: auth.v2.AuthService.ResetPassword:output_type -> auth.v2.ResetPasswordResponse
+	24, // 34: auth.v2.AuthService.ChangePassword:output_type -> auth.v2.ChangePasswordResponse
+	8,  // 35: auth.v2.AuthService.Validate:output_type -> auth.v2.ValidateTokenResponse
+	16, // 36: auth.v2.AuthService.ValidateActivationCode:output_type -> auth.v2.CheckTokenActivationPasswordResponse
+	10, // 37: auth.v2.AuthService.VerifyOTP:output_type -> auth.v2.VerifyOTPResponse
+	12, // 38: auth.v2.AuthService.ResendOTP:output_type -> auth.v2.ResendOTPResponse
+	26, // 39: auth.v2.AuthService.Logout:output_type -> auth.v2.LogoutResponse
+	29, // 40: auth.v2.AuthService.GetAllRoleName:output_type -> auth.v2.ListRoleNameResponse
+	34, // 41: auth.v2.AuthService.GetAll:output_type -> auth.v2.LisRoleResponse
+	32, // 42: auth.v2.AuthService.GetRoleByUuid:output_type -> auth.v2.RoleResponse
+	33, // 43: auth.v2.AuthService.Create:output_type -> auth.v2.ActionRoleResponse
+	33, // 44: auth.v2.AuthService.Update:output_type -> auth.v2.ActionRoleResponse
+	33, // 45: auth.v2.AuthService.Delete:output_type -> auth.v2.ActionRoleResponse
+	27, // [27:46] is the sub-list for method output_type
+	8,  // [8:27] is the sub-list for method input_type
+	8,  // [8:8] is the sub-list for extension type_name
+	8,  // [8:8] is the sub-list for extension extendee
+	0,  // [0:8] is the sub-list for field type_name
 }
 
 func init() { file_auth_proto_init() }
