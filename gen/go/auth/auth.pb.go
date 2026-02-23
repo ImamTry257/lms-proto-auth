@@ -665,6 +665,7 @@ type VerifyOTPResponse struct {
 	Email         string                 `protobuf:"bytes,4,opt,name=email,proto3" json:"email,omitempty"`
 	Name          string                 `protobuf:"bytes,5,opt,name=name,proto3" json:"name,omitempty"`
 	Abilities     []*Ability             `protobuf:"bytes,7,rep,name=abilities,proto3" json:"abilities,omitempty"`
+	MerchantId    string                 `protobuf:"bytes,8,opt,name=merchant_id,json=merchantId,proto3" json:"merchant_id,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -739,6 +740,13 @@ func (x *VerifyOTPResponse) GetAbilities() []*Ability {
 		return x.Abilities
 	}
 	return nil
+}
+
+func (x *VerifyOTPResponse) GetMerchantId() string {
+	if x != nil {
+		return x.MerchantId
+	}
+	return ""
 }
 
 type ResendOTPRequest struct {
@@ -2052,7 +2060,7 @@ const file_auth_proto_rawDesc = "" +
 	"\x10VerifyOTPRequest\x12\x19\n" +
 	"\botp_code\x18\x01 \x01(\tR\aotpCode\x12\x1f\n" +
 	"\vaccess_type\x18\x02 \x01(\tR\n" +
-	"accessType\"\xf0\x01\n" +
+	"accessType\"\x91\x02\n" +
 	"\x11VerifyOTPResponse\x12!\n" +
 	"\faccess_token\x18\x01 \x01(\tR\vaccessToken\x12#\n" +
 	"\rrefresh_token\x18\x02 \x01(\tR\frefreshToken\x129\n" +
@@ -2060,7 +2068,9 @@ const file_auth_proto_rawDesc = "" +
 	"expires_at\x18\x03 \x01(\v2\x1a.google.protobuf.TimestampR\texpiresAt\x12\x14\n" +
 	"\x05email\x18\x04 \x01(\tR\x05email\x12\x12\n" +
 	"\x04name\x18\x05 \x01(\tR\x04name\x12.\n" +
-	"\tabilities\x18\a \x03(\v2\x10.auth.v2.AbilityR\tabilities\"(\n" +
+	"\tabilities\x18\a \x03(\v2\x10.auth.v2.AbilityR\tabilities\x12\x1f\n" +
+	"\vmerchant_id\x18\b \x01(\tR\n" +
+	"merchantId\"(\n" +
 	"\x10ResendOTPRequest\x12\x14\n" +
 	"\x05email\x18\x01 \x01(\tR\x05email\"2\n" +
 	"\x11ResendOTPResponse\x12\x1d\n" +

@@ -79,6 +79,7 @@ message VerifyOTPResponse {
     string email = 4;
     string name = 5;
     repeated Ability abilities = 7;
+    string merchant_id = 8;
 }
 
 message ResendOTPRequest {
