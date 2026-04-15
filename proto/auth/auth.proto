@@ -22,6 +22,7 @@ message LoginResponse {
     string otp_token = 1;
     string auth_level = 2;
     google.protobuf.Timestamp expires_at = 3;
+    string otp_code = 4;
 }
 
 message RefreshTokenRequest {
@@ -89,6 +90,7 @@ message ResendOTPRequest {
 
 message ResendOTPResponse {
     bool is_success = 1;
+    string otp_code = 2;
 }
 
 message ResendActivationCodeRequest {
@@ -97,6 +99,7 @@ message ResendActivationCodeRequest {
 
 message ResendActivationCodeResponse {
     bool is_success = 1;
+    string activation_code = 2;
 }
 
 message CheckTokenActivationPasswordRequest {

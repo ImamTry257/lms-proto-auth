@@ -134,6 +134,7 @@ type LoginResponse struct {
 	OtpToken      string                 `protobuf:"bytes,1,opt,name=otp_token,json=otpToken,proto3" json:"otp_token,omitempty"`
 	AuthLevel     string                 `protobuf:"bytes,2,opt,name=auth_level,json=authLevel,proto3" json:"auth_level,omitempty"`
 	ExpiresAt     *timestamppb.Timestamp `protobuf:"bytes,3,opt,name=expires_at,json=expiresAt,proto3" json:"expires_at,omitempty"`
+	OtpCode       string                 `protobuf:"bytes,4,opt,name=otp_code,json=otpCode,proto3" json:"otp_code,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -187,6 +188,13 @@ func (x *LoginResponse) GetExpiresAt() *timestamppb.Timestamp {
 		return x.ExpiresAt
 	}
 	return nil
+}
+
+func (x *LoginResponse) GetOtpCode() string {
+	if x != nil {
+		return x.OtpCode
+	}
+	return ""
 }
 
 type RefreshTokenRequest struct {
@@ -804,6 +812,7 @@ func (x *ResendOTPRequest) GetEmail() string {
 type ResendOTPResponse struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	IsSuccess     bool                   `protobuf:"varint,1,opt,name=is_success,json=isSuccess,proto3" json:"is_success,omitempty"`
+	OtpCode       string                 `protobuf:"bytes,2,opt,name=otp_code,json=otpCode,proto3" json:"otp_code,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -843,6 +852,13 @@ func (x *ResendOTPResponse) GetIsSuccess() bool {
 		return x.IsSuccess
 	}
 	return false
+}
+
+func (x *ResendOTPResponse) GetOtpCode() string {
+	if x != nil {
+		return x.OtpCode
+	}
+	return ""
 }
 
 type ResendActivationCodeRequest struct {
@@ -890,10 +906,11 @@ func (x *ResendActivationCodeRequest) GetEmail() string {
 }
 
 type ResendActivationCodeResponse struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	IsSuccess     bool                   `protobuf:"varint,1,opt,name=is_success,json=isSuccess,proto3" json:"is_success,omitempty"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
+	state          protoimpl.MessageState `protogen:"open.v1"`
+	IsSuccess      bool                   `protobuf:"varint,1,opt,name=is_success,json=isSuccess,proto3" json:"is_success,omitempty"`
+	ActivationCode string                 `protobuf:"bytes,2,opt,name=activation_code,json=activationCode,proto3" json:"activation_code,omitempty"`
+	unknownFields  protoimpl.UnknownFields
+	sizeCache      protoimpl.SizeCache
 }
 
 func (x *ResendActivationCodeResponse) Reset() {
@@ -931,6 +948,13 @@ func (x *ResendActivationCodeResponse) GetIsSuccess() bool {
 		return x.IsSuccess
 	}
 	return false
+}
+
+func (x *ResendActivationCodeResponse) GetActivationCode() string {
+	if x != nil {
+		return x.ActivationCode
+	}
+	return ""
 }
 
 type CheckTokenActivationPasswordRequest struct {
@@ -2032,13 +2056,14 @@ const file_auth_proto_rawDesc = "" +
 	"\bpassword\x18\x02 \x01(\tR\bpassword\"?\n" +
 	"\aAbility\x12\x1a\n" +
 	"\bresource\x18\x01 \x01(\tR\bresource\x12\x18\n" +
-	"\aactions\x18\x02 \x03(\tR\aactions\"\x86\x01\n" +
+	"\aactions\x18\x02 \x03(\tR\aactions\"\xa1\x01\n" +
 	"\rLoginResponse\x12\x1b\n" +
 	"\totp_token\x18\x01 \x01(\tR\botpToken\x12\x1d\n" +
 	"\n" +
 	"auth_level\x18\x02 \x01(\tR\tauthLevel\x129\n" +
 	"\n" +
-	"expires_at\x18\x03 \x01(\v2\x1a.google.protobuf.TimestampR\texpiresAt\":\n" +
+	"expires_at\x18\x03 \x01(\v2\x1a.google.protobuf.TimestampR\texpiresAt\x12\x19\n" +
+	"\botp_code\x18\x04 \x01(\tR\aotpCode\":\n" +
 	"\x13RefreshTokenRequest\x12#\n" +
 	"\rrefresh_token\x18\x01 \x01(\tR\frefreshToken\"\xc3\x01\n" +
 	"\x14RefreshTokenResponse\x12!\n" +
@@ -2089,15 +2114,17 @@ const file_auth_proto_rawDesc = "" +
 	"\vmerchant_id\x18\b \x01(\tR\n" +
 	"merchantId\"(\n" +
 	"\x10ResendOTPRequest\x12\x14\n" +
-	"\x05email\x18\x01 \x01(\tR\x05email\"2\n" +
+	"\x05email\x18\x01 \x01(\tR\x05email\"M\n" +
 	"\x11ResendOTPResponse\x12\x1d\n" +
 	"\n" +
-	"is_success\x18\x01 \x01(\bR\tisSuccess\"3\n" +
+	"is_success\x18\x01 \x01(\bR\tisSuccess\x12\x19\n" +
+	"\botp_code\x18\x02 \x01(\tR\aotpCode\"3\n" +
 	"\x1bResendActivationCodeRequest\x12\x14\n" +
-	"\x05email\x18\x01 \x01(\tR\x05email\"=\n" +
+	"\x05email\x18\x01 \x01(\tR\x05email\"f\n" +
 	"\x1cResendActivationCodeResponse\x12\x1d\n" +
 	"\n" +
-	"is_success\x18\x01 \x01(\bR\tisSuccess\"N\n" +
+	"is_success\x18\x01 \x01(\bR\tisSuccess\x12'\n" +
+	"\x0factivation_code\x18\x02 \x01(\tR\x0eactivationCode\"N\n" +
 	"#CheckTokenActivationPasswordRequest\x12'\n" +
 	"\x0factivation_code\x18\x01 \x01(\tR\x0eactivationCode\"E\n" +
 	"$CheckTokenActivationPasswordResponse\x12\x1d\n" +
