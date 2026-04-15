@@ -394,19 +394,20 @@ func (x *RegisterRequest) GetMerchantUuid() string {
 }
 
 type RegisterResponse struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	Id            string                 `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
-	Name          string                 `protobuf:"bytes,2,opt,name=name,proto3" json:"name,omitempty"`
-	Email         string                 `protobuf:"bytes,3,opt,name=email,proto3" json:"email,omitempty"`
-	MerchantUuid  string                 `protobuf:"bytes,4,opt,name=merchant_uuid,json=merchantUuid,proto3" json:"merchant_uuid,omitempty"`
-	MerchantName  string                 `protobuf:"bytes,5,opt,name=merchant_name,json=merchantName,proto3" json:"merchant_name,omitempty"`
-	IsActive      bool                   `protobuf:"varint,6,opt,name=is_active,json=isActive,proto3" json:"is_active,omitempty"`
-	Type          string                 `protobuf:"bytes,7,opt,name=type,proto3" json:"type,omitempty"`
-	CreatedAt     *timestamppb.Timestamp `protobuf:"bytes,8,opt,name=created_at,json=createdAt,proto3" json:"created_at,omitempty"`
-	RoleId        string                 `protobuf:"bytes,9,opt,name=role_id,json=roleId,proto3" json:"role_id,omitempty"`
-	RoleName      string                 `protobuf:"bytes,10,opt,name=role_name,json=roleName,proto3" json:"role_name,omitempty"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
+	state          protoimpl.MessageState `protogen:"open.v1"`
+	Id             string                 `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
+	Name           string                 `protobuf:"bytes,2,opt,name=name,proto3" json:"name,omitempty"`
+	Email          string                 `protobuf:"bytes,3,opt,name=email,proto3" json:"email,omitempty"`
+	MerchantUuid   string                 `protobuf:"bytes,4,opt,name=merchant_uuid,json=merchantUuid,proto3" json:"merchant_uuid,omitempty"`
+	MerchantName   string                 `protobuf:"bytes,5,opt,name=merchant_name,json=merchantName,proto3" json:"merchant_name,omitempty"`
+	IsActive       bool                   `protobuf:"varint,6,opt,name=is_active,json=isActive,proto3" json:"is_active,omitempty"`
+	Type           string                 `protobuf:"bytes,7,opt,name=type,proto3" json:"type,omitempty"`
+	CreatedAt      *timestamppb.Timestamp `protobuf:"bytes,8,opt,name=created_at,json=createdAt,proto3" json:"created_at,omitempty"`
+	RoleId         string                 `protobuf:"bytes,9,opt,name=role_id,json=roleId,proto3" json:"role_id,omitempty"`
+	RoleName       string                 `protobuf:"bytes,10,opt,name=role_name,json=roleName,proto3" json:"role_name,omitempty"`
+	ActivationCode string                 `protobuf:"bytes,11,opt,name=activation_code,json=activationCode,proto3" json:"activation_code,omitempty"`
+	unknownFields  protoimpl.UnknownFields
+	sizeCache      protoimpl.SizeCache
 }
 
 func (x *RegisterResponse) Reset() {
@@ -505,6 +506,13 @@ func (x *RegisterResponse) GetRoleId() string {
 func (x *RegisterResponse) GetRoleName() string {
 	if x != nil {
 		return x.RoleName
+	}
+	return ""
+}
+
+func (x *RegisterResponse) GetActivationCode() string {
+	if x != nil {
+		return x.ActivationCode
 	}
 	return ""
 }
@@ -1162,10 +1170,11 @@ func (x *ForgotPasswordRequest) GetEmail() string {
 }
 
 type ForgotPasswordResponse struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	IsSuccess     bool                   `protobuf:"varint,1,opt,name=is_success,json=isSuccess,proto3" json:"is_success,omitempty"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
+	state           protoimpl.MessageState `protogen:"open.v1"`
+	IsSuccess       bool                   `protobuf:"varint,1,opt,name=is_success,json=isSuccess,proto3" json:"is_success,omitempty"`
+	ForgotpassToken string                 `protobuf:"bytes,2,opt,name=forgotpass_token,json=forgotpassToken,proto3" json:"forgotpass_token,omitempty"`
+	unknownFields   protoimpl.UnknownFields
+	sizeCache       protoimpl.SizeCache
 }
 
 func (x *ForgotPasswordResponse) Reset() {
@@ -1205,9 +1214,16 @@ func (x *ForgotPasswordResponse) GetIsSuccess() bool {
 	return false
 }
 
+func (x *ForgotPasswordResponse) GetForgotpassToken() string {
+	if x != nil {
+		return x.ForgotpassToken
+	}
+	return ""
+}
+
 type ResetPasswordRequest struct {
 	state                protoimpl.MessageState `protogen:"open.v1"`
-	ActivationCode       string                 `protobuf:"bytes,1,opt,name=activation_code,json=activationCode,proto3" json:"activation_code,omitempty"`
+	ForgotpassToken      string                 `protobuf:"bytes,1,opt,name=forgotpass_token,json=forgotpassToken,proto3" json:"forgotpass_token,omitempty"`
 	NewPassword          string                 `protobuf:"bytes,2,opt,name=new_password,json=newPassword,proto3" json:"new_password,omitempty"`
 	ConfirmationPassword string                 `protobuf:"bytes,3,opt,name=confirmation_password,json=confirmationPassword,proto3" json:"confirmation_password,omitempty"`
 	unknownFields        protoimpl.UnknownFields
@@ -1244,9 +1260,9 @@ func (*ResetPasswordRequest) Descriptor() ([]byte, []int) {
 	return file_auth_proto_rawDescGZIP(), []int{21}
 }
 
-func (x *ResetPasswordRequest) GetActivationCode() string {
+func (x *ResetPasswordRequest) GetForgotpassToken() string {
 	if x != nil {
-		return x.ActivationCode
+		return x.ForgotpassToken
 	}
 	return ""
 }
@@ -2038,7 +2054,7 @@ const file_auth_proto_rawDesc = "" +
 	"\tis_active\x18\x03 \x01(\bR\bisActive\x12\x17\n" +
 	"\arole_id\x18\x04 \x01(\tR\x06roleId\x12\x12\n" +
 	"\x04type\x18\x05 \x01(\tR\x04type\x12#\n" +
-	"\rmerchant_uuid\x18\x06 \x01(\tR\fmerchantUuid\"\xb8\x02\n" +
+	"\rmerchant_uuid\x18\x06 \x01(\tR\fmerchantUuid\"\xe1\x02\n" +
 	"\x10RegisterResponse\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\tR\x02id\x12\x12\n" +
 	"\x04name\x18\x02 \x01(\tR\x04name\x12\x14\n" +
@@ -2051,7 +2067,8 @@ const file_auth_proto_rawDesc = "" +
 	"created_at\x18\b \x01(\v2\x1a.google.protobuf.TimestampR\tcreatedAt\x12\x17\n" +
 	"\arole_id\x18\t \x01(\tR\x06roleId\x12\x1b\n" +
 	"\trole_name\x18\n" +
-	" \x01(\tR\broleName\"9\n" +
+	" \x01(\tR\broleName\x12'\n" +
+	"\x0factivation_code\x18\v \x01(\tR\x0eactivationCode\"9\n" +
 	"\x14ValidateTokenRequest\x12!\n" +
 	"\faccess_token\x18\x01 \x01(\tR\vaccessToken\"D\n" +
 	"\x15ValidateTokenResponse\x12\x17\n" +
@@ -2094,12 +2111,13 @@ const file_auth_proto_rawDesc = "" +
 	"\n" +
 	"is_success\x18\x01 \x01(\bR\tisSuccess\"-\n" +
 	"\x15ForgotPasswordRequest\x12\x14\n" +
-	"\x05email\x18\x01 \x01(\tR\x05email\"7\n" +
+	"\x05email\x18\x01 \x01(\tR\x05email\"b\n" +
 	"\x16ForgotPasswordResponse\x12\x1d\n" +
 	"\n" +
-	"is_success\x18\x01 \x01(\bR\tisSuccess\"\x97\x01\n" +
-	"\x14ResetPasswordRequest\x12'\n" +
-	"\x0factivation_code\x18\x01 \x01(\tR\x0eactivationCode\x12!\n" +
+	"is_success\x18\x01 \x01(\bR\tisSuccess\x12)\n" +
+	"\x10forgotpass_token\x18\x02 \x01(\tR\x0fforgotpassToken\"\x99\x01\n" +
+	"\x14ResetPasswordRequest\x12)\n" +
+	"\x10forgotpass_token\x18\x01 \x01(\tR\x0fforgotpassToken\x12!\n" +
 	"\fnew_password\x18\x02 \x01(\tR\vnewPassword\x123\n" +
 	"\x15confirmation_password\x18\x03 \x01(\tR\x14confirmationPassword\"6\n" +
 	"\x15ResetPasswordResponse\x12\x1d\n" +

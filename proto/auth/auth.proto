@@ -56,6 +56,7 @@ message RegisterResponse {
     google.protobuf.Timestamp created_at = 8;
     string role_id = 9;
     string role_name = 10;
+    string activation_code = 11;
 }
 
 message ValidateTokenRequest {
@@ -122,10 +123,11 @@ message ForgotPasswordRequest {
 
 message ForgotPasswordResponse {
     bool is_success = 1;
+    string forgotpass_token = 2;
 }
 
 message ResetPasswordRequest {
-    string activation_code = 1;
+    string forgotpass_token = 1;
     string new_password = 2;
     string confirmation_password = 3;
 }
